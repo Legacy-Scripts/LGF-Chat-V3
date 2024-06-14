@@ -13,6 +13,9 @@ function Core:GetPlayerJob(player)
         Shared:GetDebug(Job)
         return Job
     elseif ESX then
+        local Job = ESX.GetPlayerFromId(player)?.job?.name or "unemployed"
+        Shared:GetDebug(Job)
+        return Job
     end
 end
 
@@ -23,6 +26,10 @@ function Core:GetPlayerName(player)
         Shared:GetDebug(PlayerName)
         return PlayerName
     elseif ESX then
+        local PlayerData = ESX.GetPlayerFromId(player)
+        local PlayerName = PlayerData.getName()
+        Shared:GetDebug(PlayerName)
+        return PlayerName
     end
 end
 
@@ -33,6 +40,10 @@ function Core:GetPlayerGroup(player)
         Shared:GetDebug(Group)
         return Group
     elseif ESX then
+        local PlayerData = ESX.GetPlayerFromId(player)
+        local Group = PlayerData.getGroup()
+        Shared:GetDebug(Group)
+        return Group
     end
 end
 
