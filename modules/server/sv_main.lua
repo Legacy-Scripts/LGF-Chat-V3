@@ -62,7 +62,7 @@ exports('SendAutoMessage', SendAutoMessage)
 CreateThread(function()
     while true do
         for _, data in ipairs(CFG.AutoMessageData) do
-            exports.LGF_Chat:SendAutoMessage({
+            SendAutoMessage({
                 message = data.message,
                 author = data.author,
                 bgColor = data.bgColor,
