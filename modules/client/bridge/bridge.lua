@@ -2,8 +2,9 @@ local Core = {}
 local LGF = GetResourceState('LegacyFramework'):find('start') and exports['LegacyFramework']:ReturnFramework() or nil
 local ESX = GetResourceState('es_extended'):find('start') and exports['es_extended']:getSharedObject() or nil
 local LC = GetResourceState('LGF_Core'):find('start') and exports['LGF_Core']:GetCoreData() or nil
-local Shared = require 'utils.utils'
+local QBX = GetResourceState('qb-core'):find('start') and exports['qb-core']:GetCoreObject() or nil
 
+local Shared = require 'utils.utils'
 
 function Core:LoadPlayer()
     if LGF then
@@ -11,6 +12,9 @@ function Core:LoadPlayer()
     elseif ESX then
         return ESX.IsPlayerLoaded()
     elseif LC then
+        return true
+    elseif QBX then
+        -- TriggerEvent('QBCore:Client:OnPlayerLoaded')
         return true
     end
     return false
@@ -25,6 +29,9 @@ function Core:GetPlayerData()
         return PlayerData
     elseif LC then
         local PlayerData = lib.callback.await('LGF_CHAT:GetPlayerData', false)
+        return PlayerData
+    elseif QBX then
+        local PlayerData = exports.qbx_core:GetPlayerData()
         return PlayerData
     end
 end
@@ -47,6 +54,10 @@ function Core:GetPlayerName()
             warn('missing Name')
             return nil
         end
+    elseif QBX then
+        local Player = exports.qbx_core:GetPlayerData()
+        local PlayerName = ("%s %s"):format(Player.charinfo.firstname, Player.charinfo.lastname)
+        return PlayerName
     elseif ESX then
         local PlayerData = ESX.GetPlayerData()
         if PlayerData and PlayerData.name then
@@ -69,6 +80,9 @@ function Core:GetJobPlayer()
         local xPlayer = Core:GetPlayerData()
         local job = xPlayer.job.name or 'uknown'
         return job
+    elseif QBX then
+        local PlayerData = exports.qbx_core:GetPlayerData()
+        return PlayerData.job.name
     elseif LC then
         local Job = Core:GetPlayerData().job
         print(Job)
@@ -89,7 +103,7 @@ function Core:GetNotify(icon, msg, title)
             bgColor = "#000000",
             duration = 6
         })
-    elseif ESX or LC then
+    elseif ESX or LC or QBX then
         lib.notify({
             title = title,
             description = msg,

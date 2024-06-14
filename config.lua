@@ -33,7 +33,7 @@ CFG.AutoMessageData = {
         icon = 'bell'        -- Icon
     },
     {
-        time = 60,
+        time = 10,
         message = 'LGF Chat',
         author = 'System',
         bgColor = '#312B2B',

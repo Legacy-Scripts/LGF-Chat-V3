@@ -3,7 +3,7 @@ local Core = {}
 local LGF = GetResourceState('LegacyFramework'):find('start') and exports['LegacyFramework']:ReturnFramework() or nil
 local ESX = GetResourceState('es_extended'):find('start') and exports['es_extended']:getSharedObject() or nil
 local LC = GetResourceState('LGF_Core'):find('start') and exports['LGF_Core']:GetCoreData() or nil
-
+local QBX = GetResourceState('qb-core'):find('start') and exports['qb-core']:GetCoreObject() or nil
 local Shared = require 'utils.utils'
 
 function Core:GetPlayerJob(player)
@@ -20,6 +20,8 @@ function Core:GetPlayerJob(player)
         local CharId = LC.getCharID(Identifier.license)
         local Job = LC.getInfoPlayer(CharId).jobs.job
         return Job
+    elseif QBX then
+        return exports.qbx_core:GetPlayer(player).PlayerData.job.label
     end
 end
 
@@ -40,6 +42,9 @@ function Core:GetPlayerName(player)
         local InfoPlayer = LC.getInfoPlayer(CharId)
         local Identity = InfoPlayer.identity
         return string.format('%s %s', Identity.nome, Identity.cognome)
+    elseif QBX then
+        local Data = exports.qbx_core:GetPlayer(player).PlayerData
+        return string.format("%s %s", Data.charinfo.firstname, Data.charinfo.lastname)
     end
 end
 
@@ -47,15 +52,18 @@ function Core:GetPlayerGroup(player)
     if LGF then
         local PlayerData = LGF.SvPlayerFunctions.GetPlayerData(player)[1]
         local Group = PlayerData?.playerGroup
-        Shared:GetDebug(Group)
         return Group
     elseif ESX then
         local PlayerData = ESX.GetPlayerFromId(player)
         local Group = PlayerData.getGroup()
-        Shared:GetDebug(Group)
+
         return Group
     elseif LC then
         return 'admin'
+    elseif QBX then
+        if IsPlayerAceAllowed(player, 'admin') then
+            return 'admin'
+        end
     end
 end
 
