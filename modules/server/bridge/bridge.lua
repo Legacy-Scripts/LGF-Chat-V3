@@ -2,10 +2,9 @@
 local Core = {}
 local LGF = GetResourceState('LegacyFramework'):find('start') and exports['LegacyFramework']:ReturnFramework() or nil
 local ESX = GetResourceState('es_extended'):find('start') and exports['es_extended']:getSharedObject() or nil
+local LC = GetResourceState('LGF_Core'):find('start') and exports['LGF_Core']:GetCoreData() or nil
 
 local Shared = require 'utils.utils'
-
-
 
 function Core:GetPlayerJob(player)
     if LGF then
@@ -15,6 +14,11 @@ function Core:GetPlayerJob(player)
     elseif ESX then
         local Job = ESX.GetPlayerFromId(player)?.job?.name or "unemployed"
         Shared:GetDebug(Job)
+        return Job
+    elseif LC then
+        local Identifier = LC.getIdentifiers(player)
+        local CharId = LC.getCharID(Identifier.license)
+        local Job = LC.getInfoPlayer(CharId).jobs.job
         return Job
     end
 end
@@ -30,6 +34,12 @@ function Core:GetPlayerName(player)
         local PlayerName = PlayerData.getName()
         Shared:GetDebug(PlayerName)
         return PlayerName
+    elseif LC then
+        local Identifier = LC.getIdentifiers(player)
+        local CharId = LC.getCharID(Identifier.license)
+        local InfoPlayer = LC.getInfoPlayer(CharId)
+        local Identity = InfoPlayer.identity
+        return string.format('%s %s', Identity.nome, Identity.cognome)
     end
 end
 
@@ -44,9 +54,10 @@ function Core:GetPlayerGroup(player)
         local Group = PlayerData.getGroup()
         Shared:GetDebug(Group)
         return Group
+    elseif LC then
+        return 'admin'
     end
 end
-
 
 
 function Core:SvNotification(source, msg, title, icon)
