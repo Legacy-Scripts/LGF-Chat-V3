@@ -1,7 +1,7 @@
 local Core = {}
 local LGF = GetResourceState('LegacyFramework'):find('start') and exports['LegacyFramework']:ReturnFramework() or nil
 local ESX = GetResourceState('es_extended'):find('start') and exports['es_extended']:getSharedObject() or nil
-
+local LC = GetResourceState('LGF_Core'):find('start') and exports['LGF_Core']:GetCoreData() or nil
 local Shared = require 'utils.utils'
 
 
@@ -10,9 +10,12 @@ function Core:LoadPlayer()
         return LGF.PlayerFunctions.PlayerLoaded()
     elseif ESX then
         return ESX.IsPlayerLoaded()
+    elseif LC then
+        return true
     end
     return false
 end
+
 
 function Core:GetPlayerData()
     if LGF then
@@ -21,8 +24,12 @@ function Core:GetPlayerData()
     elseif ESX then
         local PlayerData = ESX.GetPlayerData()
         return PlayerData
+    elseif LC then
+        local PlayerData = lib.callback.await('LGF_CHAT:GetPlayerData', false)
+        return PlayerData
     end
 end
+
 
 function Core:GetPlayerName()
     if LGF then
@@ -33,6 +40,10 @@ function Core:GetPlayerName()
         else
             return warn('missing Name')
         end
+    elseif LC then
+        local PlayerName = Core:GetPlayerData().name
+        return PlayerName
+    end
     elseif ESX then
         return ESX.GetPlayerData().name
     else
@@ -49,10 +60,14 @@ function Core:GetJobPlayer()
         local xPlayer = Core:GetPlayerData()
         local job = xPlayer.job.name or 'uknown'
         return job
+    elseif LC then
+        return Core:GetPlayerData().job
     else
         return warn('missing data')
     end
 end
+
+
 
 function Core:GetNotify(icon, msg, title)
     if LGF then
@@ -65,7 +80,7 @@ function Core:GetNotify(icon, msg, title)
             bgColor = "#000000",
             duration = 6
         })
-    elseif ESX then
+    elseif ESX or LC then
         lib.notify({
             title = title,
             description = msg,
