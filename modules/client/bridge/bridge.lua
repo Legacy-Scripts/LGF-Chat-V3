@@ -9,7 +9,7 @@ function Core:LoadPlayer()
     if LGF then
         return LGF.PlayerFunctions.PlayerLoaded()
     elseif ESX then
-        return ESX.PlayerLoaded()
+        return ESX.IsPlayerLoaded()
     end
     return false
 end
@@ -34,6 +34,8 @@ function Core:GetPlayerName()
             return warn('missing Name')
         end
     elseif ESX then
+        return ESX.GetPlayerData().name
+    else
         return GetPlayerName(cache.playerId)
     end
 end
@@ -45,7 +47,7 @@ function Core:GetJobPlayer()
         return job
     elseif ESX then
         local xPlayer = Core:GetPlayerData()
-        local job = xPlayer.job.name or 'uknow'
+        local job = xPlayer.job.name or 'uknown'
         return job
     else
         return warn('missing data')
