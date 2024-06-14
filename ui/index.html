@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGF Chat</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="chat">
+        <div class="chat-container">
+            <div class="chat-messages" id="chat-messages"></div>
+        </div>
+
+        <form class="chat-input" id="chat-form">
+            <input type="text" id="chat-input" placeholder="Type Message..." />
+            <div class="suggestion-container" id="suggestion-container">
+            </div>
+
+            <button type="submit" class="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+            <button type="button" class="settings-btn">
+                <i class="fas fa-arrows-alt"></i>
+            </button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

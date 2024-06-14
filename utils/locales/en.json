@@ -1,0 +1,7 @@
+{
+    "noPermissionCommand" : "You Dont Have Permission For This Command",
+    "adAlreadyActive" : "An ad is already active. Please wait until it finishes.",
+    "adNeedMessage" : "You need to provide a message for the ad",
+    "adFinished" : "Your ad has finished." ,
+    "adScheduled" : "Your ad has been scheduled for the next 30 minutes"
+}
