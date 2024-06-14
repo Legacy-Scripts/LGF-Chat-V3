@@ -287,8 +287,12 @@ function startDrag(event) {
 function dragChat(event) {
     if (isChatDragging) {
         const chatContainer = document.querySelector('.chat');
-        const newChatLeft = (event.clientX - offset.x + chatContainer.offsetLeft) + 'px';
-        const newChatTop = (event.clientY - offset.y + chatContainer.offsetTop) + 'px';
+        const chatContainerSize = document.querySelector('.chat-container').getBoundingClientRect();
+        
+        /* This is extremely janky, but I can't be arsed to do in another way */
+        const newChatLeft = Math.max(-30, Math.min(window.innerWidth - chatContainerSize.width * 1.05, event.clientX - offset.x + chatContainer.offsetLeft)) + 'px';
+        const newChatTop = Math.min(chatContainerSize.height * 0.925, Math.max(-(chatContainerSize.height * 1.05), event.clientY - offset.y + chatContainer.offsetTop)) + 'px';
+
         chatContainer.style.left = newChatLeft;
         chatContainer.style.top = newChatTop;
 
