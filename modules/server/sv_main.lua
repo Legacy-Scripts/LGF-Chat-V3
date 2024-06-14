@@ -75,8 +75,9 @@ CreateThread(function()
 end)
 
 function ServerFunction:SendDiscordMessage(playerId, playerName, typeChat, description)
-    local webhookUrl = 'https://discord.com/api/webhooks/1200838652901732472/adxwo-gNuh8qHO-hdifU77Xzbf1RV3_ZeQhXr_USzCs5jUx0curnu605BKL6xbpcE9H0'
-    local Logo = 'https://cdn.discordapp.com/attachments/1200838616679727195/1243947570099916851/esxLogo.png?ex=665353f4&is=66520274&hm=b97652767d7824c9e74057ac221ccd45d02491da9bbbdb932033ef1699b65dfc&'
+    local webhookUrl = CFG.Webhook.URL
+    if webhookUrl == '' then return end
+    local Logo = CFG.Webhook.ImageURL or nil
     local embed = {
         title = "New Chat Message",
         color = 16711680,
@@ -96,7 +97,6 @@ function ServerFunction:SendDiscordMessage(playerId, playerName, typeChat, descr
         },
         author = {
             name = "Server Log",
-            url = "https://github.com/YourRepo",
             icon_url = Logo
         }
     }

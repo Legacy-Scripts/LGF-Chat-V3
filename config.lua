@@ -40,3 +40,8 @@ CFG.AutoMessageData = {
         icon = 'bullhorn'
     },
 }
+
+CFG.Webhook = {
+    URL      = '',
+    ImageURL = ''
+}
