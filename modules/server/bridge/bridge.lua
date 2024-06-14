@@ -59,6 +59,18 @@ function Core:GetPlayerGroup(player)
     end
 end
 
+lib.callback.register('LGF_CHAT:GetPlayerData', function(source)
+    local job = Core:GetPlayerJob(source)
+    local group = Core:GetPlayerGroup(source)
+    local name = Core:GetPlayerName(source)
+    return {
+        job = job,
+        group = group,
+        name = name
+    }
+end)
+
+
 
 function Core:SvNotification(source, msg, title, icon)
     if LGF then
