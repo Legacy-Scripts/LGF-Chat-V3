@@ -14,7 +14,6 @@ client_scripts {
     'modules/client/bridge/bridge.lua',
     'modules/client/cl_main.lua',
     'modules/client/events.lua',
-    'modules/client/editable.lua',
 }
 
 server_scripts {

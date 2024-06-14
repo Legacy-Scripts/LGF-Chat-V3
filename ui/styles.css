@@ -84,7 +84,7 @@ body {
     color: white;
     word-break: break-word;
     font-size: 15px;
-    font-family: 'Copperplate', sans-serif; /* Utilizza il font Copperplate */
+    font-family: 'Copperplate', sans-serif; 
     max-height: 100px;
     overflow-y: auto;
 }

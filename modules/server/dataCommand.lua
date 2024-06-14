@@ -13,7 +13,7 @@ RegisterCommand(CFG.OOC, function(source, args)
     local typeChat = "OOC"
     local description = table.concat(args, " ")
     if args and #args > 0 then
-        exports.LGF_Chat:CreateSendMessage({
+        exports['LGF-Chat']:CreateSendMessage({
             playerId = playerId,
             message = description,
             playerJob = typeChat,
@@ -32,7 +32,7 @@ RegisterCommand(CFG.POLICE, function(source, args)
     local Text = table.concat(args, " ")
     if args and #args > 0 then
         if PlayerJob == 'police' then
-            exports.LGF_Chat:CreateSendMessage({
+            exports['LGF-Chat']:CreateSendMessage({
                 playerId = source,
                 message = Text,
                 playerJob = PlayerJob,
@@ -53,7 +53,7 @@ RegisterCommand(CFG.AMBULANCE, function(source, args)
     local text = table.concat(args, " ")
     if args and #args > 0 then
         if PlayerJob == 'ambulance' then
-            exports.LGF_Chat:CreateSendMessage({
+            exports['LGF-Chat']:CreateSendMessage({
                 playerId = source,
                 message = text,
                 playerJob = PlayerJob,
@@ -92,7 +92,7 @@ RegisterCommand(CFG.STAFF, function(source, args)
     local text = table.concat(args, " ")
     if args and #args > 0 then
         if CFG.AdminGroup[PlayerGroup] then
-            exports.LGF_Chat:CreateSendMessage({
+            exports['LGF-Chat']:CreateSendMessage({
                 playerId = source,
                 message = text,
                 playerJob = PlayerGroup,
@@ -128,7 +128,7 @@ RegisterCommand(CFG.AD, function(source, args)
     adActive = true
 
     function Functions:sendAd()
-        exports.LGF_Chat:CreateSendMessage({
+        exports['LGF-Chat']:CreateSendMessage({
             message = text,
             playerJob = PlayerJob,
             author = 'ADVERTISEMENT',

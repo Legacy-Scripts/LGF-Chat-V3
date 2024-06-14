@@ -16,7 +16,6 @@ function Core:LoadPlayer()
     return false
 end
 
-
 function Core:GetPlayerData()
     if LGF then
         local PlayerData = LGF.PlayerFunctions.GetClientData()[1]
@@ -30,22 +29,32 @@ function Core:GetPlayerData()
     end
 end
 
-
 function Core:GetPlayerName()
     if LGF then
         local PlayerData = Core:GetPlayerData()
-        if PlayerData and PlayerData?.firstName and PlayerData?.lastName then
+        if PlayerData and PlayerData.firstName and PlayerData.lastName then
             local playerName = string.format("%s %s", PlayerData.firstName, PlayerData.lastName)
             return playerName
         else
-            return warn('missing Name')
+            warn('missing Name')
+            return nil
         end
     elseif LC then
-        local PlayerName = Core:GetPlayerData().name
-        return PlayerName
-    end
+        local PlayerData = Core:GetPlayerData()
+        if PlayerData and PlayerData.name then
+            return PlayerData.name
+        else
+            warn('missing Name')
+            return nil
+        end
     elseif ESX then
-        return ESX.GetPlayerData().name
+        local PlayerData = ESX.GetPlayerData()
+        if PlayerData and PlayerData.name then
+            return PlayerData.name
+        else
+            warn('missing Name')
+            return nil
+        end
     else
         return GetPlayerName(cache.playerId)
     end
@@ -66,8 +75,6 @@ function Core:GetJobPlayer()
         return warn('missing data')
     end
 end
-
-
 
 function Core:GetNotify(icon, msg, title)
     if LGF then
