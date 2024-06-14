@@ -70,7 +70,9 @@ function Core:GetJobPlayer()
         local job = xPlayer.job.name or 'uknown'
         return job
     elseif LC then
-        return Core:GetPlayerData().job
+        local Job = Core:GetPlayerData().job
+        print(Job)
+        return Job
     else
         return warn('missing data')
     end

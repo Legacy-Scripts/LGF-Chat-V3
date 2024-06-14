@@ -76,7 +76,6 @@ RegisterCommand(CFG.ONLYSTAFF, function(source, args)
     local text       = table.concat(args, " ")
     if args and #args > 0 then
         for _, playerId in pairs(GetPlayers()) do
-            print('prpprprprrp', playerId)
             local AdminGroup = Core:GetPlayerGroup(playerId)
             if CFG.AdminGroup[AdminGroup] then
                 TriggerClientEvent("chatMessage", playerId, PlayerName, text, source, 'PRIVATE STAFF', '#312B2B', 'user-shield')

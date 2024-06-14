@@ -83,7 +83,7 @@ function Core:SvNotification(source, msg, title, icon)
             position = 'top-right'
         })
     end
-    if ESX then
+    if ESX or LC then
         TriggerClientEvent('ox_lib:notify', source,
             {
                 icon = icon,
