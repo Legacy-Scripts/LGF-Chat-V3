@@ -4,7 +4,7 @@
 
 [FORUM](https://forum.cfx.re/t/free-lgf-chat-advanced-roleplay-server/5241930)
 
-This resource provides a chat interface for players to communicate in-game. Below are the instructions for using the chat functionality:
+This resource provides a chat interface for players to communicate in-game. Below are the instructions for using the chat functionality
 
 ![image](https://github.com/Legacy-Framework/LGF-Chat/assets/145626625/92ee517c-21a7-4c87-a30a-50e50c97627a)
 
@@ -59,14 +59,12 @@ exports['LGF-Chat']:CreateSendMessage({
 ```lua
 RegisterCommand('ooc', function(source, args)
     local playerId = source
-    local xPlayer = ESX.GetPlayerFromId(src)
-    local PlayerJob = xPlayer.getJob()
     local description = table.concat(args, " ")
     if args and #args > 0 then -- Let's avoid sending an empty message
         exports['LGF-Chat']:CreateSendMessage({
             playerId = playerId,
             message = description, 
-            playerJob = PlayerJob, -- Example You don't want jobs or groups, just put 'OOC' or 'IC' or you choose
+            playerJob = 'OOC', -- Example You don't want jobs or groups, just put 'OOC' or 'IC' or you choose
             author = playerName,
             bgColor = '#312B2B',
             icon = 'globe'
