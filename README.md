@@ -1,4 +1,4 @@
-# LGF Chat Interface
+# LGF Chat 
 
 [SHOWCASE](https://www.youtube.com/watch?v=hE_XRWy4-EE)
 
