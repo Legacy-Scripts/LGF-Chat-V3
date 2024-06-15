@@ -8,7 +8,7 @@ This resource provides a chat interface for players to communicate in-game. Belo
 
 ![image](https://github.com/Legacy-Framework/LGF-Chat/assets/145626625/92ee517c-21a7-4c87-a30a-50e50c97627a)
 
-- **Framework Support**: Compatible with ESX. QBCore and Qbox support coming soon.
+- **Framework Support**: Compatible with ESX,Qbox,LGF. QBCore support coming soon.
 - **Roleplay Integration**: Designed specifically for roleplay servers.
   - **Job Chat**: Communicate with others in the same profession.
   - **Admin Chat**: Dedicated chat for server administrators.
