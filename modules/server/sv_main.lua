@@ -1,5 +1,8 @@
 local Core = require 'modules.server.bridge.bridge'
+local Utils = require 'utils.utils'
 ServerFunction = {}
+local lastMessageTime = {}
+
 
 if not lib.checkDependency('ox_lib', '3.21.0', true) then
     return warn('Download Latest versions for a safe approach')
@@ -11,9 +14,6 @@ RegisterServerEvent('LGF_Chat:ClearChat', function()
     CancelEvent()
 end)
 
-
-
-
 AddEventHandler('playerJoining', function()
     if CFG.PlayerName == 'rp' then
         TriggerClientEvent('chatMessage', -1, 'System', Core:GetPlayerName(source) .. ' joined.')
@@ -22,6 +22,15 @@ AddEventHandler('playerJoining', function()
     end
 end)
 
+function ServerFunction:isInCooldown(playerId)
+    local currentTime = os.time()
+    if not lastMessageTime[playerId] or (currentTime - lastMessageTime[playerId]) > CFG.TimeCooldown then
+        lastMessageTime[playerId] = currentTime
+        return false
+    else
+        return true
+    end
+end
 
 RegisterServerEvent("_chat:messageEntered", function(message, playerJob)
     local source = source
@@ -56,7 +65,16 @@ RegisterServerEvent("_chat:messageEntered", function(message, playerJob)
         local typeChat = "WARNING"
         local description = "Message Contains BlackListed Word: " .. message
         ServerFunction:SendDiscordMessage(playerId, playerName, typeChat, description)
+        Core:SvNotification(source, Utils:GetKeyTraduction("BlacklistedWords"), 'WARNING', 'user-shield')
         return
+    end
+
+    if CFG.EnableCoolDown then
+        if ServerFunction:isInCooldown(source) then
+            Core:SvNotification(source, SharedCore:GetKeyTraduction("isInCooldown"), 'WARNING', 'user-shield')
+
+            return
+        end
     end
 
     if not WasEventCanceled() then

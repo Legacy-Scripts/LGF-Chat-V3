@@ -3,5 +3,7 @@
     "adAlreadyActive" : "An ad is already active. Please wait until it finishes.",
     "adNeedMessage" : "You need to provide a message for the ad",
     "adFinished" : "Your ad has finished." ,
-    "adScheduled" : "Your ad has been scheduled for the next 30 minutes"
+    "adScheduled" : "Your ad has been scheduled for the next 30 minutes",
+    "isInCooldown" : "You can't send messages that quickly",
+    "BlacklistedWords" : "You used Blacklisted words! You have now been reported!"
 }

@@ -81,26 +81,14 @@ end)
 
 
 function Core:SvNotification(source, msg, title, icon)
-    if LGF then
-        TriggerClientEvent('Legacy:AdvancedNotification', source, {
+    TriggerClientEvent('ox_lib:notify', source,
+        {
             icon = icon,
-            message = msg,
             title = title,
-            duration = 5,
-            colorIcon = "#FFA500",
-            position = 'top-right'
+            position = 'top-right',
+            description = msg,
+            duration = 6000
         })
-    end
-    if ESX or LC then
-        TriggerClientEvent('ox_lib:notify', source,
-            {
-                icon = icon,
-                title = title,
-                position = 'top-right',
-                description = msg,
-                duration = 6000
-            })
-    end
 end
 
 return Core

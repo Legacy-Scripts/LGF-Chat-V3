@@ -9,6 +9,12 @@ CFG.EnableSystemPrint = true
 CFG.CommandOpenChat = 'T'
 -- Enable GTA5 Sound message
 CFG.EnableSoundMessage = true
+-- Enable Cool Down
+CFG.EnableCoolDown = true
+-- Cooldown to Avoid Message Spam
+CFG.TimeCooldown = 10
+
+
 -- Group for 'staff' / 'onlystaff' command
 CFG.AdminGroup = {
     ['admin'] = true,
