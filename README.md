@@ -27,12 +27,12 @@ To send a message via the chat interface, use the following function:
 ## Types
 ```lua
 --- @param data table The message data.
---- @param number 
---- @param string 
---- @param string 
---- @param string 
---- @param string 
---- @param string
+--- @param playerId  | number 
+--- @param message   | string 
+--- @param playerJob | string 
+--- @param author    | string 
+--- @param bgColor   | string 
+--- @param icon      | string 
 ```
 
 ## Exports (Server Side)
