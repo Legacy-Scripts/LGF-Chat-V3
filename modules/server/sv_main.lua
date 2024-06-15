@@ -11,6 +11,9 @@ RegisterServerEvent('LGF_Chat:ClearChat', function()
     CancelEvent()
 end)
 
+
+
+
 AddEventHandler('playerJoining', function()
     if CFG.PlayerName == 'rp' then
         TriggerClientEvent('chatMessage', -1, 'System', Core:GetPlayerName(source) .. ' joined.')
@@ -19,33 +22,59 @@ AddEventHandler('playerJoining', function()
     end
 end)
 
+
 RegisterServerEvent("_chat:messageEntered", function(message, playerJob)
     local source = source
     local author
+
     if CFG.PlayerName == 'rp' then
         author = Core:GetPlayerName(source)
     elseif CFG.PlayerName == 'steam' then
         author = GetPlayerName(source)
     end
+
     if not message or not author then
         return
     end
 
     TriggerEvent('chatMessage', source, author, message)
 
+    local function detectBadWords(msg)
+        local blacklist = CFG.BlackListMessage
+        for _, word in ipairs(blacklist) do
+            if string.find(msg, word) then
+                return true
+            end
+        end
+        return false
+    end
+
+    if detectBadWords(message) then
+        CancelEvent()
+        local playerId = source
+        local playerName = author
+        local typeChat = "WARNING"
+        local description = "Message Contains BlackListed Word: " .. message
+        ServerFunction:SendDiscordMessage(playerId, playerName, typeChat, description)
+        return
+    end
+
     if not WasEventCanceled() then
         TriggerClientEvent('chatMessage', -1, author, message, source, playerJob)
     end
 end)
 
+
 RegisterNetEvent("LGF_Chat:SendAutoMessage")
 AddEventHandler("LGF_Chat:SendAutoMessage", function(data)
-    TriggerClientEvent("chatMessage", -1, data.author, data.message, data.playerId, data.playerJob, data.bgColor, data.icon)
+    TriggerClientEvent("chatMessage", -1, data.author, data.message, data.playerId, data.playerJob, data.bgColor,
+        data.icon)
 end)
 
 RegisterNetEvent("LGF_Chat:CreateSendMessage")
 AddEventHandler("LGF_Chat:CreateSendMessage", function(data)
-    TriggerClientEvent("chatMessage", -1, data.author, data.message, data.playerId, data.playerJob, data.bgColor, data.icon)
+    TriggerClientEvent("chatMessage", -1, data.author, data.message, data.playerId, data.playerJob, data.bgColor,
+        data.icon)
 end)
 
 function CreateSendMessage(data)
@@ -107,7 +136,8 @@ function ServerFunction:SendDiscordMessage(playerId, playerName, typeChat, descr
         avatar_url = Logo
     }
 
-    PerformHttpRequest(webhookUrl, function(statusCode, response, headers) end, "POST", json.encode(data), { ["Content-Type"] = "application/json" })
+    PerformHttpRequest(webhookUrl, function(statusCode, response, headers) end, "POST", json.encode(data),
+        { ["Content-Type"] = "application/json" })
 end
 
 return ServerFunction

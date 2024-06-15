@@ -42,9 +42,6 @@ function Core:GetPlayerName()
         if PlayerData and PlayerData.firstName and PlayerData.lastName then
             local playerName = string.format("%s %s", PlayerData.firstName, PlayerData.lastName)
             return playerName
-        else
-            warn('missing Name')
-            return nil
         end
     elseif LC then
         local PlayerData = Core:GetPlayerData()

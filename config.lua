@@ -9,12 +9,13 @@ CFG.EnableSystemPrint = true
 CFG.CommandOpenChat = 'T'
 -- Enable GTA5 Sound message
 CFG.EnableSoundMessage = true
-
 -- Group for 'staff' / 'onlystaff' command
 CFG.AdminGroup = {
     ['admin'] = true,
     ['player'] = false
 }
+
+-- Prefix Command
 
 CFG.OOC = 'ooc'
 CFG.POLICE = 'police'
@@ -44,4 +45,10 @@ CFG.AutoMessageData = {
 CFG.Webhook = {
     URL      = '',
     ImageURL = ''
+}
+
+CFG.BlackListMessage = {
+    'fuck',
+    'inter',
+    'milan'
 }
