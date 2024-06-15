@@ -15,8 +15,9 @@ This resource provides a chat interface for players to communicate in-game. Belo
   - **Auto Message**: Automated messages for various events.
   - **Staff Chat**: Exclusive chat for staff members only.
   - **Fully Editable**: Customize to fit your server's needs.
+  - **Blacklisted words**: Avoid Players They use incorrect terms.
+  - **CoolDown System**: Avoid Players Spam Message.
   - **UI Draggable**: Easily reposition the chat interface.
-
 
 
 
