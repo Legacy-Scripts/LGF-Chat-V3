@@ -1,7 +1,7 @@
 local Core = {}
 local Legacy = GetResourceState('LEGACYCORE'):find('start') and exports['LEGACYCORE']:GetCoreData() or nil
 local ESX = GetResourceState('es_extended'):find('start') and exports['es_extended']:getSharedObject() or nil
-local LC = GetResourceState('LGF_Core'):find('start') and exports['LGF_Core']:GetCoreData() or nil
+-- local LC = GetResourceState('LGF_Core'):find('start') and exports['LGF_Core']:GetCoreData() or nil
 local QBX = GetResourceState('qb-core'):find('start') and exports['qb-core']:GetCoreObject() or nil
 
 local Shared = require 'utils.utils'
@@ -14,7 +14,6 @@ function Core:LoadPlayer()
     elseif LC then
         return true
     elseif QBX then
-        -- TriggerEvent('QBCore:Client:OnPlayerLoaded')
         return true
     end
     return false
