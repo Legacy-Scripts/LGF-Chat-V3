@@ -1,14 +1,14 @@
 ---@diagnostic disable: need-check-nil, undefined-field
 local Core = {}
-local LGF = GetResourceState('LegacyFramework'):find('start') and exports['LegacyFramework']:ReturnFramework() or nil
+local Legacy = GetResourceState('LEGACYCORE'):find('start') and exports['LEGACYCORE']:GetCoreData() or nil
 local ESX = GetResourceState('es_extended'):find('start') and exports['es_extended']:getSharedObject() or nil
 local LC = GetResourceState('LGF_Core'):find('start') and exports['LGF_Core']:GetCoreData() or nil
 local QBX = GetResourceState('qb-core'):find('start') and exports['qb-core']:GetCoreObject() or nil
 local Shared = require 'utils.utils'
 
 function Core:GetPlayerJob(player)
-    if LGF then
-        local Job = LGF.SvPlayerFunctions.GetJobPlayer(player)
+    if Legacy then
+        local Job = Legacy.DATA:GetPlayerJobData(player).JobName
         Shared:GetDebug(Job)
         return Job
     elseif ESX then
@@ -26,11 +26,8 @@ function Core:GetPlayerJob(player)
 end
 
 function Core:GetPlayerName(player)
-    if LGF then
-        local PlayerData = LGF.SvPlayerFunctions.GetPlayerData(player)[1]
-        local PlayerName = string.format('%s %s', PlayerData.firstName, PlayerData.lastName)
-        Shared:GetDebug(PlayerName)
-        return PlayerName
+    if Legacy then
+        return Legacy.DATA:GetName(player)
     elseif ESX then
         local PlayerData = ESX.GetPlayerFromId(player)
         local PlayerName = PlayerData.getName()
@@ -49,10 +46,8 @@ function Core:GetPlayerName(player)
 end
 
 function Core:GetPlayerGroup(player)
-    if LGF then
-        local PlayerData = LGF.SvPlayerFunctions.GetPlayerData(player)[1]
-        local Group = PlayerData?.playerGroup
-        return Group
+    if Legacy then
+        return Legacy.DATA:GetPlayerGroup(player)
     elseif ESX then
         local PlayerData = ESX.GetPlayerFromId(player)
         local Group = PlayerData.getGroup()

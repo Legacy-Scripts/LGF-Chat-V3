@@ -8,9 +8,9 @@ CFG.EnableSystemPrint = true
 -- Command for Open Chat
 CFG.CommandOpenChat = 'T'
 -- Enable GTA5 Sound message
-CFG.EnableSoundMessage = true
+CFG.EnableSoundMessage = false
 -- Enable Cool Down
-CFG.EnableCoolDown = true
+CFG.EnableCoolDown = false
 -- Cooldown to Avoid Message Spam
 CFG.TimeCooldown = 10
 
@@ -33,14 +33,14 @@ CFG.AD = 'ad'
 
 CFG.AutoMessageData = {
     {
-        time = 10,           -- in seconds
+        time = 60 * 1000,    -- in seconds
         message = 'ENT510',  -- Description
         author = 'System',   -- author / title
         bgColor = '#312B2B', -- BG color
         icon = 'bell'        -- Icon
     },
     {
-        time = 10,
+        time = 60 * 1000,    -- in seconds
         message = 'LGF Chat',
         author = 'System',
         bgColor = '#312B2B',
