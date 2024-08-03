@@ -2,7 +2,7 @@ CFG = {}
 
 
 -- If 'rp' use game name, if use 'steam' use Steam Name (exclusively for chat without prefix '/' )
-CFG.PlayerName = 'rp'
+CFG.PlayerName = 'steam'
 -- If 'true' enable console Message example, (Restart / Stop / Refresh) resource
 CFG.EnableSystemPrint = true
 -- Command for Open Chat

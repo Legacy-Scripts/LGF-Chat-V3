@@ -15,10 +15,12 @@ RegisterServerEvent('LGF_Chat:ClearChat', function()
 end)
 
 AddEventHandler('playerJoining', function()
+    local Source = source
+    Wait(30000)
     if CFG.PlayerName == 'rp' then
-        TriggerClientEvent('chatMessage', -1, 'System', Core:GetPlayerName(source) .. ' joined.')
+        TriggerClientEvent('chatMessage', -1, 'System', Core:GetPlayerName(Source) .. ' joined.')
     elseif CFG.PlayerName == 'steam' then
-        TriggerClientEvent('chatMessage', -1, 'System', GetPlayerName(source) .. ' joined.')
+        TriggerClientEvent('chatMessage', -1, 'System', GetPlayerName(Source) .. ' joined.')
     end
 end)
 
@@ -85,8 +87,7 @@ end)
 
 RegisterNetEvent("LGF_Chat:SendAutoMessage")
 AddEventHandler("LGF_Chat:SendAutoMessage", function(data)
-    TriggerClientEvent("chatMessage", -1, data.author, data.message, data.playerId, data.playerJob, data.bgColor,
-        data.icon)
+    TriggerClientEvent("chatMessage", -1, data.author, data.message, data.playerId, data.playerJob, data.bgColor,  data.icon)
 end)
 
 RegisterNetEvent("LGF_Chat:CreateSendMessage")

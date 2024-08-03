@@ -1,7 +1,6 @@
 local Core = {}
 local Legacy = GetResourceState('LEGACYCORE'):find('start') and exports['LEGACYCORE']:GetCoreData() or nil
 local ESX = GetResourceState('es_extended'):find('start') and exports['es_extended']:getSharedObject() or nil
--- local LC = GetResourceState('LGF_Core'):find('start') and exports['LGF_Core']:GetCoreData() or nil
 local QBX = GetResourceState('qb-core'):find('start') and exports['qb-core']:GetCoreObject() or nil
 
 local Shared = require 'utils.utils'
@@ -11,8 +10,6 @@ function Core:LoadPlayer()
         return Legacy.DATA:IsPlayerLoaded()
     elseif ESX then
         return ESX.IsPlayerLoaded()
-    elseif LC then
-        return true
     elseif QBX then
         return true
     end
@@ -26,9 +23,6 @@ function Core:GetPlayerData()
     elseif ESX then
         local PlayerData = ESX.GetPlayerData()
         return PlayerData
-    elseif LC then
-        local PlayerData = lib.callback.await('LGF_CHAT:GetPlayerData', false)
-        return PlayerData
     elseif QBX then
         local PlayerData = exports.qbx_core:GetPlayerData()
         return PlayerData
@@ -37,26 +31,21 @@ end
 
 function Core:GetPlayerName()
     if Legacy then
-       return Legacy.DATA:GetPlayerObject().playerName
-    elseif LC then
-        local PlayerData = Core:GetPlayerData()
-        if PlayerData and PlayerData.name then
-            return PlayerData.name
-        else
-            warn('missing Name')
-            return nil
-        end
+        local Name = Core:GetPlayerData()?.playerName
+        print(Name)
+        return Name
+
     elseif QBX then
         local Player = exports.qbx_core:GetPlayerData()
         local PlayerName = ("%s %s"):format(Player.charinfo.firstname, Player.charinfo.lastname)
         return PlayerName
     elseif ESX then
-        local PlayerData = ESX.GetPlayerData()
-        if PlayerData and PlayerData.name then
-            return PlayerData.name
-        else
-            warn('missing Name')
-            return nil
+        local xPlayer = ESX.GetPlayerData()
+        local firstName = xPlayer.firstName
+        local lastName = xPlayer.lastName
+        if firstName and lastName then
+            local playerName = string.format("%s %s", firstName, lastName)
+            return playerName
         end
     else
         return GetPlayerName(cache.playerId)
@@ -65,7 +54,7 @@ end
 
 function Core:GetJobPlayer()
     if Legacy then
-        return Legacy.DATA:GetPlayerObject().JobName
+        return Core:GetPlayerData()?.JobName
     elseif ESX then
         local xPlayer = Core:GetPlayerData()
         local job = xPlayer.job.name or 'uknown'
@@ -73,17 +62,13 @@ function Core:GetJobPlayer()
     elseif QBX then
         local PlayerData = exports.qbx_core:GetPlayerData()
         return PlayerData.job.name
-    elseif LC then
-        local Job = Core:GetPlayerData().job
-        print(Job)
-        return Job
     else
         return warn('missing data')
     end
 end
 
 function Core:GetNotify(icon, msg, title)
-    if ESX or LC or QBX or Legacy then
+    if ESX or QBX or Legacy then
         lib.notify({
             title = title,
             description = msg,
